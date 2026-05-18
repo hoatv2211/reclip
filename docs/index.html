@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReClip - Video & Audio Downloader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .tagline {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            padding: 12px 0;
+            color: #555;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .download-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .download-section h2 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .requirements {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .requirements h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .requirements code {
+            background: #85640420;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .platform-select {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .platform-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .platform-btn.active {
+            border-color: #667eea;
+            background: #f0f3ff;
+            color: #667eea;
+        }
+
+        .platform-btn.windows.active {
+            border-color: #0078d4;
+            background: #e6f3ff;
+            color: #0078d4;
+        }
+
+        .platform-btn.mac.active {
+            border-color: #667eea;
+            background: #f0f3ff;
+            color: #667eea;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📥 ReClip</h1>
+        <p class="tagline">Download videos & audio from any platform</p>
+
+        <ul class="features">
+            <li>Download video in MP4 format</li>
+            <li>Extract audio as MP3</li>
+            <li>Multiple quality options</li>
+            <li>Fast and secure</li>
+        </ul>
+
+        <div class="download-section">
+            <h2>🚀 Get Started</h2>
+
+            <p style="color: #555; margin-bottom: 15px;">
+                Try ReClip online or download to run locally.
+            </p>
+
+            <div class="btn-group" style="margin-bottom: 20px;">
+                <a href="https://reclip-production-4860.up.railway.app" target="_blank" class="btn btn-primary">🌐 Try Online Demo</a>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+
+            <div class="platform-select">
+                <button class="platform-btn windows active" onclick="selectPlatform('windows')">Windows</button>
+                <button class="platform-btn mac" onclick="selectPlatform('mac')">macOS</button>
+            </div>
+
+            <div id="windows-instructions">
+                <div class="btn-group">
+                    <a href="run.bat" class="btn btn-secondary" download>Download run.bat</a>
+                    <a href="https://git-scm.com/downloads/win" target="_blank" class="btn btn-secondary">Install Git</a>
+                </div>
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    👉 Double-click <code>run.bat</code> to start. First run will set up the environment automatically.
+                </p>
+            </div>
+
+            <div id="mac-instructions" class="hidden">
+                <p style="color: #555; margin-bottom: 15px;">
+                    Open Terminal and run these commands:
+                </p>
+                <code style="display: block; background: #333; color: #fff; padding: 15px; border-radius: 8px; font-size: 0.85em; overflow-x: auto;">
+                    curl -O https://raw.githubusercontent.com/hoatv2211/reclip/main/reclip.sh<br>
+                    chmod +x reclip.sh<br>
+                    ./reclip.sh
+                </code>
+                <div class="btn-group" style="margin-top: 15px;">
+                    <a href="reclip.sh" class="btn btn-secondary" download>Download reclip.sh</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="requirements">
+            <h3>⚙️ Requirements</h3>
+            <p style="color: #856404; font-size: 0.9em;">
+                This app requires: <code>Python 3</code>, <code>yt-dlp</code>, and <code>FFmpeg</code>.
+                The <code>run.bat</code> / <code>run.sh</code> script will help you install dependencies automatically.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>Made with ❤️ |
+                <a href="https://github.com/hoatv2211/reclip" target="_blank">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function selectPlatform(platform) {
+            document.querySelectorAll('.platform-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (platform === 'windows') {
+                document.getElementById('windows-instructions').classList.remove('hidden');
+                document.getElementById('mac-instructions').classList.add('hidden');
+            } else {
+                document.getElementById('windows-instructions').classList.add('hidden');
+                document.getElementById('mac-instructions').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
