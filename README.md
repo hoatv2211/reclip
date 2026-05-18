@@ -1,5 +1,7 @@
 # ReClip
 
+> ⚠️ This is a fork of [averygan/reclip](https://github.com/averygan/reclip) with cloud deployment support (Railway, Vercel, etc.)
+
 A self-hosted, open-source video and audio downloader with a clean web UI. Paste links from YouTube, TikTok, Instagram, Twitter/X, and 1000+ other sites — download as MP4 or MP3.
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue)

@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReClip - Video & Audio Downloader</title>
+    <meta name="description" content="ReClip - Free online video and audio downloader. Download from YouTube, TikTok, Instagram, Twitter and 1000+ sites in MP4 or MP3 format.">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>ReClip - Free Online Video & Audio Downloader</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📥</text></svg>">
     <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #252542;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --primary: #667eea;
+            --primary-light: #8b9ff7;
+            --accent: #764ba2;
+            --border: #333355;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,50 +30,61 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, #16162a 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 560px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+            animation: slideUp 0.5s ease-out;
         }
 
-        h1 {
-            color: #333;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
         .tagline {
-            color: #666;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            color: var(--text-secondary);
+            font-size: 1.05em;
         }
 
         .features {
             list-style: none;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
 
         .features li {
-            padding: 12px 0;
-            color: #555;
-            border-bottom: 1px solid #eee;
+            padding: 14px 0;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 0.95em;
         }
 
         .features li:last-child {
@@ -64,22 +93,66 @@
 
         .features li::before {
             content: "✓";
-            color: #667eea;
-            font-weight: bold;
-            font-size: 1.2em;
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 1.1em;
+            min-width: 20px;
         }
 
-        .download-section {
-            background: #f8f9fa;
+        .section {
+            background: var(--bg-tertiary);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.15em;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border: none;
             border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
         }
 
-        .download-section h2 {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 15px;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary);
         }
 
         .btn-group {
@@ -88,195 +161,237 @@
             flex-wrap: wrap;
         }
 
-        .btn {
+        .btn-group .btn {
             flex: 1;
-            min-width: 150px;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #e9ecef;
-            color: #333;
-        }
-
-        .requirements {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .requirements h3 {
-            color: #856404;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-
-        .requirements code {
-            background: #85640420;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
+            min-width: 140px;
         }
 
         .platform-select {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: var(--bg-secondary);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
         .platform-btn {
             flex: 1;
             padding: 12px;
-            border: 2px solid #e9ecef;
-            background: white;
+            border: none;
+            background: transparent;
             border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s;
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .platform-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
         .platform-btn.active {
-            border-color: #667eea;
-            background: #f0f3ff;
-            color: #667eea;
+            background: var(--primary);
+            color: var(--text-primary);
         }
 
-        .platform-btn.windows.active {
-            border-color: #0078d4;
-            background: #e6f3ff;
-            color: #0078d4;
+        .instructions {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+            border: 1px solid var(--border);
         }
 
-        .platform-btn.mac.active {
-            border-color: #667eea;
-            background: #f0f3ff;
-            color: #667eea;
+        .instructions code {
+            display: block;
+            background: #0d0d1a;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 10px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            line-height: 1.7;
+            border: 1px solid var(--border);
         }
 
-        .hidden {
-            display: none;
+        .instructions code br {
+            margin-bottom: 4px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-left: 4px solid var(--warning);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #fbbf24;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 0.88em;
+            line-height: 1.6;
+        }
+
+        .info-box code {
+            background: rgba(245, 158, 11, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9em;
+            color: #fbbf24;
         }
 
         .footer {
             text-align: center;
-            margin-top: 25px;
-            color: #999;
-            font-size: 0.9em;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.88em;
         }
 
         .footer a {
-            color: #667eea;
+            color: var(--primary-light);
             text-decoration: none;
+            font-weight: 500;
         }
 
         .footer a:hover {
             text-decoration: underline;
+            color: var(--primary);
+        }
+
+        .supported-sites {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 32px 24px;
+            }
+            .logo {
+                font-size: 2.2em;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn-group .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📥 ReClip</h1>
-        <p class="tagline">Download videos & audio from any platform</p>
+        <header class="header">
+            <h1 class="logo">📥 ReClip</h1>
+            <p class="tagline">Download videos & audio from anywhere</p>
+        </header>
 
         <ul class="features">
-            <li>Download video in MP4 format</li>
-            <li>Extract audio as MP3</li>
-            <li>Multiple quality options</li>
-            <li>Fast and secure</li>
+            <li>Download from 1000+ websites</li>
+            <li>MP4 video or MP3 audio</li>
+            <li>Quality & resolution picker</li>
+            <li>No software to install</li>
         </ul>
 
-        <div class="download-section">
-            <h2>🚀 Get Started</h2>
-
-            <p style="color: #555; margin-bottom: 15px;">
-                Try ReClip online or download to run locally.
-            </p>
-
-            <div class="btn-group" style="margin-bottom: 20px;">
-                <a href="https://reclip-production-4860.up.railway.app" target="_blank" class="btn btn-primary">🌐 Try Online Demo</a>
+        <div class="section">
+            <h2 class="section-title">🌐 Try Online</h2>
+            <div class="btn-group">
+                <a href="https://reclip-production-4860.up.railway.app" target="_blank" class="btn btn-primary">
+                    🚀 Open Web App
+                </a>
             </div>
+            <p class="supported-sites">
+                Supports: YouTube, TikTok, Instagram, Twitter/X, Facebook, Vimeo, Reddit, and 1000+ more
+            </p>
+        </div>
 
-            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+        <div class="section">
+            <h2 class="section-title">💻 Run Locally</h2>
 
             <div class="platform-select">
-                <button class="platform-btn windows active" onclick="selectPlatform('windows')">Windows</button>
-                <button class="platform-btn mac" onclick="selectPlatform('mac')">macOS</button>
+                <button class="platform-btn active" data-platform="windows" onclick="selectPlatform('windows')">Windows</button>
+                <button class="platform-btn" data-platform="mac" onclick="selectPlatform('mac')">macOS / Linux</button>
             </div>
 
-            <div id="windows-instructions">
+            <div id="windows-instructions" class="instructions">
                 <div class="btn-group">
-                    <a href="run.bat" class="btn btn-secondary" download>Download run.bat</a>
-                    <a href="https://git-scm.com/downloads/win" target="_blank" class="btn btn-secondary">Install Git</a>
+                    <a href="../run.bat" class="btn btn-secondary" download>
+                        📥 Download run.bat
+                    </a>
                 </div>
-                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
-                    👉 Double-click <code>run.bat</code> to start. First run will set up the environment automatically.
+                <p style="margin-top: 12px; color: var(--text-secondary); font-size: 0.85em;">
+                    👉 Double-click <code style="background: var(--bg-primary); padding: 2px 6px; border-radius: 4px; color: var(--primary-light);">run.bat</code> to start.
+                    Dependencies install automatically on first run.
                 </p>
             </div>
 
-            <div id="mac-instructions" class="hidden">
-                <p style="color: #555; margin-bottom: 15px;">
-                    Open Terminal and run these commands:
-                </p>
-                <code style="display: block; background: #333; color: #fff; padding: 15px; border-radius: 8px; font-size: 0.85em; overflow-x: auto;">
-                    curl -O https://raw.githubusercontent.com/hoatv2211/reclip/main/reclip.sh<br>
-                    chmod +x reclip.sh<br>
-                    ./reclip.sh
-                </code>
-                <div class="btn-group" style="margin-top: 15px;">
-                    <a href="reclip.sh" class="btn btn-secondary" download>Download reclip.sh</a>
+            <div id="mac-instructions" class="instructions hidden">
+                <code>curl -O https://raw.githubusercontent.com/hoatv2211/reclip/main/reclip.sh<br>chmod +x reclip.sh<br>./reclip.sh</code>
+                <div class="btn-group" style="margin-top: 16px;">
+                    <a href="../reclip.sh" class="btn btn-secondary" download>
+                        📥 Download reclip.sh
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="requirements">
+        <div class="info-box">
             <h3>⚙️ Requirements</h3>
-            <p style="color: #856404; font-size: 0.9em;">
-                This app requires: <code>Python 3</code>, <code>yt-dlp</code>, and <code>FFmpeg</code>.
-                The <code>run.bat</code> / <code>run.sh</code> script will help you install dependencies automatically.
+            <p>
+                Requires <code>Python 3.8+</code>, <code>yt-dlp</code>, and <code>FFmpeg</code>.
+                The launcher scripts install everything automatically.
             </p>
         </div>
 
-        <div class="footer">
-            <p>Made with ❤️ |
+        <footer class="footer">
+            <p>
+                Fork of <a href="https://github.com/averygan/reclip" target="_blank">averygan/reclip</a>
+                <br>
                 <a href="https://github.com/hoatv2211/reclip" target="_blank">View on GitHub</a>
             </p>
-        </div>
+        </footer>
     </div>
 
     <script>
         function selectPlatform(platform) {
-            document.querySelectorAll('.platform-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.platform === platform);
+            });
+
+            const winInstr = document.getElementById('windows-instructions');
+            const macInstr = document.getElementById('mac-instructions');
 
             if (platform === 'windows') {
-                document.getElementById('windows-instructions').classList.remove('hidden');
-                document.getElementById('mac-instructions').classList.add('hidden');
+                winInstr.classList.remove('hidden');
+                macInstr.classList.add('hidden');
             } else {
-                document.getElementById('windows-instructions').classList.add('hidden');
-                document.getElementById('mac-instructions').classList.remove('hidden');
+                winInstr.classList.add('hidden');
+                macInstr.classList.remove('hidden');
             }
         }
     </script>
