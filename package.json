@@ -1,0 +1,12 @@
+{
+  "name": "reclip-api",
+  "version": "1.0.0",
+  "description": "Video & Audio Downloader API",
+  "main": "api/proxy.py",
+  "scripts": {
+    "start": "python api/proxy.py"
+  },
+  "keywords": ["video", "downloader", "yt-dlp"],
+  "author": "",
+  "license": "MIT"
+}

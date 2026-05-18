@@ -1,12 +1,8 @@
 import os
-import uuid
-import glob
-import json
-import subprocess
-import threading
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file
 
 app = Flask(__name__)
+
 DOWNLOAD_DIR = os.path.join(os.path.dirname(__file__), "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
@@ -14,6 +10,11 @@ jobs = {}
 
 
 def run_download(job_id, url, format_choice, format_id):
+    import glob
+    import json
+    import subprocess
+    import threading
+
     job = jobs[job_id]
     out_template = os.path.join(DOWNLOAD_DIR, f"{job_id}.%(ext)s")
 
@@ -59,7 +60,6 @@ def run_download(job_id, url, format_choice, format_id):
         job["file"] = chosen
         ext = os.path.splitext(chosen)[1]
         title = job.get("title", "").strip()
-        # Sanitize title for filename
         if title:
             safe_title = "".join(c for c in title if c not in r'\/:*?"<>|').strip()[:20].strip()
             job["filename"] = f"{safe_title}{ext}" if safe_title else os.path.basename(chosen)
@@ -73,17 +73,20 @@ def run_download(job_id, url, format_choice, format_id):
         job["error"] = str(e)
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return jsonify({"message": "ReClip API is running"})
 
 
-@app.route("/api/info", methods=["POST"])
+@app.route("/info", methods=["POST"])
 def get_info():
     data = request.json
     url = data.get("url", "").strip()
     if not url:
         return jsonify({"error": "No URL provided"}), 400
+
+    import json
+    import subprocess
 
     cmd = ["yt-dlp", "--no-playlist", "-j", url]
     try:
@@ -93,7 +96,6 @@ def get_info():
 
         info = json.loads(result.stdout)
 
-        # Build quality options — keep best format per resolution
         best_by_height = {}
         for f in info.get("formats", []):
             height = f.get("height")
@@ -124,8 +126,10 @@ def get_info():
         return jsonify({"error": str(e)}), 400
 
 
-@app.route("/api/download", methods=["POST"])
+@app.route("/download", methods=["POST"])
 def start_download():
+    import uuid
+
     data = request.json
     url = data.get("url", "").strip()
     format_choice = data.get("format", "video")
@@ -145,7 +149,7 @@ def start_download():
     return jsonify({"job_id": job_id})
 
 
-@app.route("/api/status/<job_id>")
+@app.route("/status/<job_id>", methods=["GET"])
 def check_status(job_id):
     job = jobs.get(job_id)
     if not job:
@@ -157,7 +161,7 @@ def check_status(job_id):
     })
 
 
-@app.route("/api/file/<job_id>")
+@app.route("/file/<job_id>", methods=["GET"])
 def download_file(job_id):
     job = jobs.get(job_id)
     if not job or job["status"] != "done":
@@ -167,6 +171,5 @@ def download_file(job_id):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    host = os.environ.get("HOST", "0.0.0.0")
-    debug = os.environ.get("DEBUG", "false").lower() == "true"
-    app.run(host=host, port=port, debug=debug)
+    host = os.environ.get("HOST", "127.0.0.1")
+    app.run(host=host, port=port)
